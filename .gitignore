@@ -1,0 +1,16 @@
+Core/Src/stm32f4xx_hal_msp.c
+Core/Src/syscalls.c
+Core/Src/sysmem.c
+Core/Src/system_stm32f4xx.c
+Core/Inc/stm32f4xx_hal_conf.h
+Proyecto_PCSE.ioc
+Proyecto_PCSE.launch
+STM32F401RETX_FLASH.ld
+STM32F401RETX_RAM.ld
+Debug/
+Drivers/
+.cproject
+.mxproject
+.project
+.settings/
+Core/Startup
