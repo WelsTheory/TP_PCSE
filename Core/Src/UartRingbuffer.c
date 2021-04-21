@@ -74,7 +74,7 @@ void Uart_flush (void)
 	_rx_buffer->head = _rx_buffer->tail;
 }
 
-int Look_for (char *str, char *buffertolookinto)
+/*int Look_for (char *str, char *buffertolookinto)
 {
 	int stringlength = strlen (str);
 	int bufferlength = strlen (buffertolookinto);
@@ -99,7 +99,7 @@ int Look_for (char *str, char *buffertolookinto)
 
 	if (so_far == stringlength) return 1;
 	else return -1;
-}
+}*/
 
 int Uart_read(void)
 {
@@ -177,7 +177,7 @@ int Uart_peek()
 }
 
 
-int Copy_upto (char *string, char *buffertocopyinto)
+/*int Copy_upto (char *string, char *buffertocopyinto)
 {
 	int so_far =0;
 	int len = strlen (string);
@@ -209,7 +209,7 @@ int Copy_upto (char *string, char *buffertocopyinto)
 
 	if (so_far == len) return 1;
 	else return -1;
-}
+}*/
 
 int Get_after (char *string, uint8_t numberofchars, char *buffertosave)
 {
@@ -227,34 +227,48 @@ int Wait_for (char *string)
 {
 	int so_far =0;
 	int len = strlen (string);
-
-	again:
+	uint32_t i = 1;
 	while (!IsDataAvailable());
-	if (Uart_peek() != string[so_far])
+	switch(i)
 	{
-		_rx_buffer->tail = (unsigned int)(_rx_buffer->tail + 1) % UART_BUFFER_SIZE ;
-		goto again;
-
+	case 1:
+		if (Uart_peek() != string[so_far])
+		{
+			_rx_buffer->tail = (unsigned int)(_rx_buffer->tail + 1) % UART_BUFFER_SIZE ;
+			i = 1;;
+		}
+		else
+		{
+			i = 2;
+		}
+		break;
+	case 2:
+		while (Uart_peek() == string [so_far])
+		{
+			so_far++;
+			Uart_read();
+			if (so_far == len) return 1;
+			while (!IsDataAvailable());
+		}
+		i = 3;
+		break;
+	case 3:
+		if (so_far != len)
+		{
+			so_far = 0;
+			i = 1;
+		}
+		else if (so_far == len)
+		{
+			return 1;
+		}
+		else
+		{
+			return -1;
+		}
+		break;
 	}
-	while (Uart_peek() == string [so_far])
-	{
-		so_far++;
-		Uart_read();
-		if (so_far == len) return 1;
-		while (!IsDataAvailable());
-	}
-
-	if (so_far != len)
-	{
-		so_far = 0;
-		goto again;
-	}
-
-	if (so_far == len) return 1;
-	else return -1;
 }
-
-
 
 
 void Uart_isr (UART_HandleTypeDef *huart)

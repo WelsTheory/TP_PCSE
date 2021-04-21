@@ -19,7 +19,7 @@ typedef struct
 {
 	float result;
 	float integral_result;
-	float result_vmp
+	float result_vmp;
 }Calculos_t;
 
 #define Muestras	94

@@ -61,7 +61,7 @@ float Func_Calculo_6G(void)
 
 float Func_Calculo_2G(void)
 {
-	vmp_dato = pow_x + pow_y;
+	vmp_dato = pow_x + pow_z;
 	Cal.result_vmp = sqrt(vmp_dato);
 	return Cal.result_vmp;
 }

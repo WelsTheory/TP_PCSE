@@ -55,7 +55,7 @@ void MEF_Update(void)
 			HAL_UART_Transmit(&huart2, datos, 20, HAL_MAX_DELAY);
 			HAL_UART_Transmit(&huart2, Mensaje_Lectura, 11, HAL_MAX_DELAY);
 		}
-		HAL_Delay(16);
+		HAL_Delay(8);
 		break;
 	case ENVIO_DATOS:
 		Buf[0] = Dato_Fijo;
