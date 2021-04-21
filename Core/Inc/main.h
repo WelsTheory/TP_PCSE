@@ -37,12 +37,15 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-I2C_HandleTypeDef hi2c1;
 
-TIM_HandleTypeDef htim11;
-
-UART_HandleTypeDef huart1;
-UART_HandleTypeDef huart2;
+//I2C_HandleTypeDef hi2c1;
+//
+//RTC_HandleTypeDef hrtc;
+//
+//TIM_HandleTypeDef htim11;
+//
+//UART_HandleTypeDef huart1;
+//UART_HandleTypeDef huart2;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -57,7 +60,13 @@ UART_HandleTypeDef huart2;
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
-
+void SystemClock_Config(void);
+void MX_GPIO_Init(void);
+void MX_USART2_UART_Init(void);
+void MX_I2C1_Init(void);
+void MX_TIM11_Init(void);
+void MX_USART1_UART_Init(void);
+void MX_RTC_Init(void);
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */

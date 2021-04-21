@@ -10,6 +10,7 @@
 #include "stdio.h"
 #include "string.h"
 
+#define Comando_AT	"AT\r\n"
 
 void bufclr (char *buf)
 {
@@ -18,7 +19,7 @@ void bufclr (char *buf)
 }
 
 
-void ESP_Init (char *SSID, char *PASSWD)
+uint32_t ESP_Init (char *SSID, char *PASSWD)
 {
 	char data[80];
 
@@ -30,7 +31,7 @@ void ESP_Init (char *SSID, char *PASSWD)
 	Uart_flush();
 
 	/********* AT **********/
-	Uart_sendstring("AT\r\n");
+	Uart_sendstring(Comando_AT);
 	while(!(Wait_for("OK\r\n")));
 
 	Uart_flush();

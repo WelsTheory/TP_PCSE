@@ -5,7 +5,7 @@
 #include "main.h"
 
 /*==================[macros and definitions]=================================*/
-
+extern I2C_HandleTypeDef hi2c1;
 /*==================[internal data declaration]==============================*/
 
 /*==================[internal functions declaration]=========================*/
@@ -82,9 +82,6 @@ uint8_t MPU6050_Init (MPU60X0_address_t address)
 	if(MPU6050_WriteRegister(MPU60X0_PWR_MGMT_1,MPU60X0_CLOCK_SEL_PLL_X_GYRO) < 0){
 		return -4;
 	}
-//	if(HAL_I2C_Mem_Read (&hi2c1, MPU60X0_ADDRESS_0,MPU60X0_WHO_AM_I,1, &check, 1, 1000) != MPU60X0_ADDRESS_0){
-//		return -5;
-//	}
 	if(MPU6050_WriteRegister(MPU60X0_PWR_MGMT_2,MPU60X0_SEN_ENABLE) < 0){
 		return -6;
 	}
@@ -278,14 +275,6 @@ static int8_t mpu60X0SetSrd( uint8_t srd )
 //Read sensor registers and store data at control structure
 bool_t mpu60X0Read(void)
 {
-	// grab the data from the MPU60X0
-	//HAL_I2C_Mem_Read (&hi2c1, MPU6050_ADDR,MPU60X0_WHO_AM_I,1, &check, 1, 1000)
-	//if( !mpu60X0ReadRegisters(MPU60X0_ACCEL_OUT, 21) ){
-	//uint8_t control._buffer[21];
-	//HAL_I2C_Mem_Read (&hi2c1, control.address, MPU60X0_ACCEL_OUT, 1, check, 21, 1000);
-	//	if( HAL_I2C_Mem_Read(&hi2c1, control.address ,MPU60X0_ACCEL_OUT,1, control._buffer, 21, 1000) == 0){
-	//		return 0;
-	//	}
 	HAL_I2C_Mem_Read(&hi2c1, control.address ,MPU60X0_ACCEL_OUT,1, control._buffer, 15, 1000);
 
 	// combine into 16 bit values
